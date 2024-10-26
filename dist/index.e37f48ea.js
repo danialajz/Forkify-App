@@ -591,7 +591,19 @@ const showRecipes = async function() {
         console.log(data);
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
         let { recipe } = data.data;
-    } catch  {}
+        recipe = {
+            id: recipe.id,
+            title: recipe.title,
+            publisher: recipe.publisher,
+            sourceUrl: recipe.image_url,
+            image: recipe.image_url,
+            servings: recipe.servings,
+            cookingTime: recipe.cooking_time,
+            ingredients: recipe.ingredients
+        };
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 },{}]},["hycaY","aenu9"], "aenu9", "parcelRequire7e89")
