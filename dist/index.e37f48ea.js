@@ -584,6 +584,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"aenu9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _iconsSvg = require("../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+var _iconsSvg1 = require("url:../img/icons.svg");
+var _iconsSvgDefault1 = parcelHelpers.interopDefault(_iconsSvg1);
 const recipeContainer = document.querySelector(".recipe");
 const showRecipes = async function() {
     try {
@@ -613,14 +618,14 @@ const showRecipes = async function() {
       <div class="recipe__details">
         <div class="recipe__info">
           <svg class="recipe__info-icon">
-            <use href="src/img/icons.svg#icon-clock"></use>
+            <use href="${(0, _iconsSvgDefault1.default)}#icon-clock"></use>
           </svg>
           <span class="recipe__info-data recipe__info-data--minutes">${recipe.cookingTime}</span>
           <span class="recipe__info-text">minutes</span>
         </div>
         <div class="recipe__info">
           <svg class="recipe__info-icon">
-            <use href="src/img/icons.svg#icon-users"></use>
+            <use href="${(0, _iconsSvgDefault1.default)}#icon-users"></use>
           </svg>
           <span class="recipe__info-data recipe__info-data--people">${recipe.servings}</span>
           <span class="recipe__info-text">servings</span>
@@ -628,12 +633,12 @@ const showRecipes = async function() {
           <div class="recipe__info-buttons">
             <button class="btn--tiny btn--increase-servings">
               <svg>
-                <use href="src/img/icons.svg#icon-minus-circle"></use>
+                <use href="${(0, _iconsSvgDefault1.default)}#icon-minus-circle"></use>
               </svg>
             </button>
             <button class="btn--tiny btn--increase-servings">
               <svg>
-                <use href="src/img/icons.svg#icon-plus-circle"></use>
+                <use href="${(0, _iconsSvgDefault1.default)}#icon-plus-circle"></use>
               </svg>
             </button>
           </div>
@@ -641,12 +646,12 @@ const showRecipes = async function() {
 
         <div class="recipe__user-generated">
           <svg>
-            <use href="src/img/icons.svg#icon-user"></use>
+            <use href="${(0, _iconsSvgDefault1.default)}#icon-user"></use>
           </svg>
         </div>
         <button class="btn--round">
           <svg class="">
-            <use href="src/img/icons.svg#icon-bookmark-fill"></use>
+            <use href="${(0, _iconsSvgDefault1.default)}#icon-bookmark-fill"></use>
           </svg>
         </button>
       </div>
@@ -658,7 +663,7 @@ const showRecipes = async function() {
             return `
           <li class="recipe__ingredient">
           <svg class="recipe__icon">
-            <use href="src/img/icons.svg#icon-check"></use>
+            <use href="${0, _iconsSvgDefault1.default}#icon-check"></use>
           </svg>
           <div class="recipe__quantity">${ing.quantity}</div>
           <div class="recipe__description">
@@ -685,7 +690,7 @@ const showRecipes = async function() {
         >
           <span>Directions</span>
           <svg class="search__icon">
-            <use href="src/img/icons.svg#icon-arrow-right"></use>
+            <use href="${(0, _iconsSvgDefault1.default)}#icon-arrow-right"></use>
           </svg>
         </a>
       </div>
@@ -697,6 +702,77 @@ const showRecipes = async function() {
     }
 };
 showRecipes();
+
+},{"../img/icons.svg":"cMpiy","url:../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMpiy":[function(require,module,exports) {
+module.exports = require("17cff2908589362b").getBundleURL("hWUTQ") + "icons.21bad73c.svg" + "?" + Date.now();
+
+},{"17cff2908589362b":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+}
+// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"loVOp":[function(require,module,exports) {
+module.exports = require("9bcc84ee5d265e38").getBundleURL("hWUTQ") + "icons.dfd7a6db.svg" + "?" + Date.now();
+
+},{"9bcc84ee5d265e38":"lgJ39"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["hycaY","aenu9"], "aenu9", "parcelRequire7e89")
 
