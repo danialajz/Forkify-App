@@ -5,7 +5,7 @@ import "regenerator-runtime/runtime";
 import recpieView from "./views/recipeView.js";
 import recipeView from "./views/recipeView.js";
 
-const recipeContainer = document.querySelector(".recipe");
+// const recipeContainer = document.querySelector(".recipe");
 
 const controlRecipes = async function () {
   try {
@@ -13,13 +13,14 @@ const controlRecipes = async function () {
     console.log(id);
     if (!id) return;
 
-    recipeView.renderSpiner(recipeContainer);
+    recipeView.renderSpiner();
+
     await model.loadRecpie(id);
-    const { recipe } = model.state;
+ 
     recpieView.render(model.state.recipe);
     // const recpieView = new recipeView(model.state.recipe);
   } catch (err) {
-    console.log(err);
+    recipeView.renderMessage()
   }
 };
 const init = function () {

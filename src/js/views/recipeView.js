@@ -5,14 +5,28 @@ import { Fraction } from "fractional";
 export class RecipeView {
   #parentElement = document.querySelector(".recipe");
   #data;
+  #erorrmessage = "we could not find that recipe. please try another one";
+  #message
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
     this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   }
+  renderMessage(message = this.#erorrmessage) {
+    const markup = `<div class="message">
+            <div>
+              <svg>
+                <use href="${icons}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
   #clear() {
-    this.#parentElement.innerHT = "";
+    this.#parentElement.innerHTML = "";
   }
   renderSpiner = function (parentEl) {
     const markup = `

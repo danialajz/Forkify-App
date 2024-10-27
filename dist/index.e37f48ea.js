@@ -591,19 +591,18 @@ var _model = require("./model");
 var _runtime = require("regenerator-runtime/runtime");
 var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
-const recipeContainer = document.querySelector(".recipe");
+// const recipeContainer = document.querySelector(".recipe");
 const controlRecipes = async function() {
     try {
         const id = window.location.hash.slice(1);
         console.log(id);
         if (!id) return;
-        (0, _recipeViewJsDefault.default).renderSpiner(recipeContainer);
+        (0, _recipeViewJsDefault.default).renderSpiner();
         await _model.loadRecpie(id);
-        const { recipe } = _model.state;
         (0, _recipeViewJsDefault.default).render(_model.state.recipe);
     // const recpieView = new recipeView(model.state.recipe);
     } catch (err) {
-        console.log(err);
+        (0, _recipeViewJsDefault.default).renderMessage();
     }
 };
 const init = function() {
@@ -1867,10 +1866,15 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecpie", ()=>loadRecpie);
+parcelHelpers.export(exports, "loadSearchResault", ()=>loadSearchResault);
 var _config = require("./config");
 var _helper = require("./helper");
 const state = {
-    recipe: {}
+    recipe: {},
+    search: {
+        query: "",
+        resault: []
+    }
 };
 const loadRecpie = async function(id) {
     try {
@@ -1887,9 +1891,27 @@ const loadRecpie = async function(id) {
             ingredients: recipe.ingredients
         };
     } catch (err) {
-        console.error(err);
+        throw err;
     }
 };
+const loadSearchResault = async function(query) {
+    try {
+        state.search.query = query;
+        const data = await (0, _helper.getJson)(`${(0, _config.API_URL)}?search=${query}`);
+        state.search.resault = data.data.recipes.map((rec)=>{
+            return {
+                id: rec.id,
+                title: rec.title,
+                publisher: rec.publisher,
+                image: rec.image_url
+            };
+        });
+        console.log(state.search.resault);
+    } catch (err) {
+        throw err;
+    }
+};
+loadSearchResault("pizza");
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs","./helper":"lVRAz"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -1938,13 +1960,16 @@ const timeout = function(s) {
     return new Promise(function(_, reject) {
         setTimeout(function() {
             reject(new Error(`Request took too long! Timeout after ${s} second`));
-        }, 1000);
+        }, s * 1000);
     });
 };
 const getJson = async function(url) {
     try {
         const fetchPro = fetch(url);
-        const res = await Promise.race(fetchPro, timeout((0, _config.TIMEOUT_SEC)));
+        const res = await Promise.race([
+            fetchPro,
+            timeout((0, _config.TIMEOUT_SEC))
+        ]);
         const data = await res.json();
         console.log(data);
         if (!res.ok) throw new Error(`${data.message} (${res.status})`);
@@ -2551,14 +2576,28 @@ var _fractional = require("fractional");
 class RecipeView {
     #parentElement = document.querySelector(".recipe");
     #data;
+    #erorrmessage = "we could not find that recipe. please try another one";
+    #message;
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
         this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     }
+    renderMessage(message = this.#erorrmessage) {
+        const markup = `<div class="message">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault1.default)}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
     #clear() {
-        this.#parentElement.innerHT = "";
+        this.#parentElement.innerHTML = "";
     }
     renderSpiner = function(parentEl) {
         const markup = `
