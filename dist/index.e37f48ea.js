@@ -611,7 +611,7 @@ const contorolSearchResault = async function() {
     try {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
-        await _model.loadSearchResault();
+        await _model.loadSearchResault(query);
         console.log(_model.state.search.resault);
     } catch (err) {
         console.log(err);
@@ -2589,7 +2589,7 @@ class RecipeView {
     #parentElement = document.querySelector(".recipe");
     #data;
     #erorrmessage = "we could not find that recipe. please try another one";
-    #message;
+    #message = "";
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2721,7 +2721,7 @@ class RecipeView {
 }
 exports.default = new RecipeView();
 
-},{"../../img/icons.svg":"cMpiy","url:../../img/icons.svg":"loVOp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","fractional":"3SU56"}],"cMpiy":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/icons.svg":"cMpiy","url:../../img/icons.svg":"loVOp","fractional":"3SU56"}],"cMpiy":[function(require,module,exports) {
 module.exports = require("17cff2908589362b").getBundleURL("hWUTQ") + "icons.21bad73c.svg" + "?" + Date.now();
 
 },{"17cff2908589362b":"lgJ39"}],"lgJ39":[function(require,module,exports) {

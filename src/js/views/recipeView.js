@@ -6,7 +6,7 @@ export class RecipeView {
   #parentElement = document.querySelector(".recipe");
   #data;
   #erorrmessage = "we could not find that recipe. please try another one";
-  #message
+  #message = "";
   render(data) {
     this.#data = data;
     const markup = this.#generateMarkup();
