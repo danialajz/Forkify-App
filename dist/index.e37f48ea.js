@@ -2591,20 +2591,7 @@ class RecipeView {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-        ${this.#data.ingredients.map((ing)=>{
-            return `
-          <li class="recipe__ingredient">
-          <svg class="recipe__icon">
-            <use href="${0, _iconsSvgDefault1.default}#icon-check"></use>
-          </svg>
-          <div class="recipe__quantity">${ing.quantity ? new (0, _fractional.Fraction)(ing.quantity).toString() : ""}</div>
-          <div class="recipe__description">
-            <span class="recipe__unit">${ing.unit}</span>
-            ${ing.description}
-          </div>
-        </li>
-            `;
-        }).join("")}
+        ${this.#data.ingredients.map(this.#generateMarkupIngredients()).join("")}
   
       </div>
 
@@ -2626,6 +2613,20 @@ class RecipeView {
           </svg>
         </a>
       </div>
+      `;
+    }
+    #generateMarkupIngredients(ing) {
+        return `
+    <li class="recipe__ingredient">
+    <svg class="recipe__icon">
+      <use href="${0, _iconsSvgDefault1.default}#icon-check"></use>
+    </svg>
+    <div class="recipe__quantity">${ing.quantity ? new (0, _fractional.Fraction)(ing.quantity).toString() : ""}</div>
+    <div class="recipe__description">
+      <span class="recipe__unit">${ing.unit}</span>
+      ${ing.description}
+    </div>
+  </li>
       `;
     }
 }
