@@ -24,6 +24,11 @@ export class RecipeView {
     this.#parentElement.innerHTML = "";
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   };
+  addhandelRender(handler) {
+    ["hashchange", "load"].forEach((ev) =>
+      window.addEventListener(ev, handler)
+    );
+  }
   #generateMarkup() {
     return `
     <figure class="recipe__fig">
@@ -83,9 +88,7 @@ export class RecipeView {
       <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-        ${this.#data.ingredients
-          .map(this.#generateMarkupIngredients)
-          .join("")}
+        ${this.#data.ingredients.map(this.#generateMarkupIngredients).join("")}
   
       </div>
 
