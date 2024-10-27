@@ -2516,7 +2516,6 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _iconsSvg1 = require("url:../../img/icons.svg");
 var _iconsSvgDefault1 = parcelHelpers.interopDefault(_iconsSvg1);
 var _fractional = require("fractional");
-var _fractionalDefault = parcelHelpers.interopDefault(_fractional);
 class RecipeView {
     #parentElement = document.querySelector(".recipe");
     #data;
@@ -2598,7 +2597,7 @@ class RecipeView {
           <svg class="recipe__icon">
             <use href="${0, _iconsSvgDefault1.default}#icon-check"></use>
           </svg>
-          <div class="recipe__quantity">${ing.quantity}</div>
+          <div class="recipe__quantity">${ing.quantity ? new (0, _fractional.Fraction)(ing.quantity).toString() : ""}</div>
           <div class="recipe__description">
             <span class="recipe__unit">${ing.unit}</span>
             ${ing.description}
