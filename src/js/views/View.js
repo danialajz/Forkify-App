@@ -1,6 +1,6 @@
 import icons from "../../img/icons.svg";
 import icons from "url:../../img/icons.svg";
-export class View {
+export default class View {
   _data;
 
   render(data) {
@@ -12,6 +12,7 @@ export class View {
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
   _clear() {
+    if (!this._parentElement) return;
     this._parentElement.innerHTML = "";
   }
   renderSpiner() {
