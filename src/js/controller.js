@@ -5,6 +5,7 @@ import "regenerator-runtime/runtime";
 import recpieView from "./views/recipeView.js";
 import recipeView from "./views/recipeView.js";
 import SearchView from "./views/searchView.js";
+import resaultView from "./views/resaultView.js";
 
 // const recipeContainer = document.querySelector(".recipe");
 
@@ -26,6 +27,9 @@ const controlRecipes = async function () {
 };
 const contorolSearchResault = async function () {
   try {
+    resaultView.renderSpiner();
+    console.log(resaultView);
+
     const query = SearchView.getQuery();
 
     if (!query) return;

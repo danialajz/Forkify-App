@@ -593,6 +593,8 @@ var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
 var _searchViewJs = require("./views/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
+var _resaultViewJs = require("./views/resaultView.js");
+var _resaultViewJsDefault = parcelHelpers.interopDefault(_resaultViewJs);
 // const recipeContainer = document.querySelector(".recipe");
 const controlRecipes = async function() {
     try {
@@ -609,6 +611,8 @@ const controlRecipes = async function() {
 };
 const contorolSearchResault = async function() {
     try {
+        (0, _resaultViewJsDefault.default).renderSpiner();
+        console.log((0, _resaultViewJsDefault.default));
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         await _model.loadSearchResault(query);
@@ -623,7 +627,7 @@ const init = function() {
 };
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model":"Y4A21","regenerator-runtime/runtime":"dXNgZ","./views/recipeView.js":"l60JC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/searchView.js":"9OQAM"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model":"Y4A21","regenerator-runtime/runtime":"dXNgZ","./views/recipeView.js":"l60JC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/searchView.js":"9OQAM","./views/resaultView.js":"kRL5y"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -3000,18 +3004,6 @@ class View {
         this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
-    renderMessage(message = this._erorrmessage) {
-        const markup = `<div class="message">
-            <div>
-              <svg>
-                <use href="${(0, _iconsSvgDefault1.default)}#icon-smile"></use>
-              </svg>
-            </div>
-            <p>${message}</p>
-          </div>`;
-        this._clear();
-        this._parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
     _clear() {
         this._parentElement.innerHTML = "";
     }
@@ -3022,7 +3014,32 @@ class View {
               <use href="${(0, _iconsSvgDefault1.default)}#icon-loader"></use>
             </svg>
           </div> `;
-        this._parentElement.innerHTML = "";
+        this._clear();
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderError(message = this._erorrmessage) {
+        const markup = `
+    <div class="error">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault1.default)}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>
+    `;
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderMessage(message = this._erorrmessage) {
+        const markup = `<div class="message">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault1.default)}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+        this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
 }
@@ -3049,6 +3066,15 @@ class SearchView {
 }
 exports.default = new SearchView();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire7e89")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kRL5y":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _view = require("./View");
+class resaultView extends (0, _view.View) {
+    _parentElement = document.querySelector(".results");
+}
+exports.default = new resaultView();
+
+},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire7e89")
 
 //# sourceMappingURL=index.e37f48ea.js.map

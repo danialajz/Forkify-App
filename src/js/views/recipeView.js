@@ -5,10 +5,10 @@ import { Fraction } from "fractional";
 
 export class RecipeView extends View {
   _parentElement = document.querySelector(".recipe");
-
   _erorrmessage = "we could not find that recipe. please try another one";
   _message = "";
 
+ 
   addhandelRender(handler) {
     ["hashchange", "load"].forEach((ev) =>
       window.addEventListener(ev, handler)
