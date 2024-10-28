@@ -596,6 +596,7 @@ var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _resaultViewJs = require("./views/resaultView.js");
 var _resaultViewJsDefault = parcelHelpers.interopDefault(_resaultViewJs);
 // const recipeContainer = document.querySelector(".recipe");
+if (module.hot) module.hot.accept();
 const controlRecipes = async function() {
     try {
         const id = window.location.hash.slice(1);
@@ -616,6 +617,7 @@ const contorolSearchResault = async function() {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         await _model.loadSearchResault(query);
+        (0, _resaultViewJsDefault.default).render(_model.state.search.resault);
         console.log(_model.state.search.resault);
     } catch (err) {
         console.log(err);
@@ -2639,9 +2641,7 @@ class RecipeView extends (0, _view.View) {
         </div>
 
         <div class="recipe__user-generated">
-          <svg>
-            <use href="${0, _iconsSvgDefault1.default}#icon-user"></use>
-          </svg>
+         
         </div>
         <button class="btn--round">
           <svg class="">
@@ -3070,11 +3070,36 @@ exports.default = new SearchView();
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _view = require("./View");
+var _iconsSvg = require("../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+var _iconsSvg1 = require("url:../../img/icons.svg");
+var _iconsSvgDefault1 = parcelHelpers.interopDefault(_iconsSvg1);
 class resaultView extends (0, _view.View) {
+    _erorrmessage = "";
+    _message = "";
     _parentElement = document.querySelector(".results");
+    _generateMarkup() {
+        return this._data.map(this._generateMarkupPreview).join("");
+    }
+    _generateMarkupPreview(resault) {
+        return `
+    <li class="preview">
+            <a class="preview__link" href="#${resault.id}">
+              <figure class="preview__fig">
+                <img src="${resault.image}" alt="Test" />
+              </figure>
+              <div class="preview__data">
+                <h4 class="preview__title">${resault.title}</h4>
+                <p class="preview__publisher">${resault.publisher}</p>
+               
+              </div>
+            </a>
+          </li>
+          `;
+    }
 }
 exports.default = new resaultView();
 
-},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire7e89")
+},{"./View":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/icons.svg":"cMpiy","url:../../img/icons.svg":"loVOp"}]},["hycaY","aenu9"], "aenu9", "parcelRequire7e89")
 
 //# sourceMappingURL=index.e37f48ea.js.map
