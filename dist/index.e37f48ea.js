@@ -2999,6 +2999,7 @@ var _iconsSvgDefault1 = parcelHelpers.interopDefault(_iconsSvg1);
 class View {
     _data;
     render(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderMessage();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
@@ -3017,7 +3018,7 @@ class View {
         this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
-    renderError(message = this._erorrmessage) {
+    renderError(message = this._errormessage) {
         const markup = `
     <div class="error">
             <div>
@@ -3075,7 +3076,7 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 var _iconsSvg1 = require("url:../../img/icons.svg");
 var _iconsSvgDefault1 = parcelHelpers.interopDefault(_iconsSvg1);
 class resaultView extends (0, _view.View) {
-    _erorrmessage = "";
+    _erorrmessage = "No recipe Found";
     _message = "";
     _parentElement = document.querySelector(".results");
     _generateMarkup() {

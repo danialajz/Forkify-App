@@ -4,6 +4,8 @@ export class View {
   _data;
 
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.renderMessage();
     this._data = data;
     const markup = this._generateMarkup();
     this._clear();
@@ -22,7 +24,7 @@ export class View {
     this._clear();
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
-  renderError(message = this._erorrmessage) {
+  renderError(message = this._errormessage) {
     const markup = `
     <div class="error">
             <div>
