@@ -64,3 +64,4 @@ export const updateServing = function (newServing) {
   state.recipe.servings = newServing;
 };
 
+export const addBookMark(){}

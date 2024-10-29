@@ -1965,6 +1965,7 @@ const updateServing = function(newServing) {
     state.recipe.ingredients.forEach((ing)=>ing.quantity = ing.quantity * newServing / state.recipe.servings);
     state.recipe.servings = newServing;
 };
+const ;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs","./helper":"lVRAz"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
