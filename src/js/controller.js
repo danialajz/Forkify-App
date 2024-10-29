@@ -49,12 +49,14 @@ const contorolSearchResault = async function () {
 };
 const controlServing = function (newservings) {
   model.updateServing(newservings);
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 const controlPagination = function (goToPage) {
   model.state.search.page = goToPage;
   resaultView.render(model.getSearchResaultPage(goToPage));
   paginationView.render(model.state.search);
+  // paginationView.update(model.state.search);
 };
 const init = function () {
   recipeView.addhandelRender(controlRecipes);

@@ -631,12 +631,14 @@ const contorolSearchResault = async function() {
 };
 const controlServing = function(newservings) {
     _model.updateServing(newservings);
-    (0, _recipeViewJsDefault.default).render(_model.state.recipe);
+    // recipeView.render(model.state.recipe);
+    (0, _recipeViewJsDefault.default).update(_model.state.recipe);
 };
 const controlPagination = function(goToPage) {
     _model.state.search.page = goToPage;
     (0, _resaultViewJsDefault.default).render(_model.getSearchResaultPage(goToPage));
     (0, _paginationViewJsDefault.default).render(_model.state.search);
+// paginationView.update(model.state.search);
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addhandelRender(controlRecipes);
@@ -3045,6 +3047,19 @@ class View {
         const markup = this._generateMarkup();
         this._clear();
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    update(data) {
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderMessage();
+        this._data = data;
+        const newmarkup = this._generateMarkup();
+        const newDom = document.createRange().createContextualFragment(newmarkup);
+        const newElement = Array.from(newDom.querySelectorAll("*"));
+        const curElement = Array.from(this._parentElement.querySelectorAll("*"));
+        newElement.forEach((newEl, i)=>{
+            const curEl = curElement[i];
+            if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== "") curEl.textContent = newEl.textContent;
+            if (!newEl.isEqualNode(curEl)) Array.from(newEl.attributes).forEach((attr)=>curEl.setAttribute(attr.name, attr.value));
+        });
     }
     _clear() {
         if (!this._parentElement) return;
