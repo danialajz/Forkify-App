@@ -12,8 +12,6 @@ export default class View {
     this._parentElement.insertAdjacentHTML("afterbegin", markup);
   }
   update(data) {
-    if (!data || (Array.isArray(data) && data.length === 0))
-      return this.renderMessage();
     this._data = data;
     const newmarkup = this._generateMarkup();
     const newDom = document.createRange().createContextualFragment(newmarkup);

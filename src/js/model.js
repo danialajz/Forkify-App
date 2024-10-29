@@ -40,6 +40,7 @@ export const loadSearchResault = async function (query) {
         image: rec.image_url,
       };
     });
+    state.search.page = 1;
     console.log(state.search.resault);
   } catch (err) {
     throw err;
@@ -62,3 +63,4 @@ export const updateServing = function (newServing) {
   );
   state.recipe.servings = newServing;
 };
+

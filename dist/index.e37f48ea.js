@@ -607,6 +607,7 @@ const controlRecipes = async function() {
         console.log(id);
         if (!id) return;
         (0, _recipeViewJsDefault.default).renderSpiner();
+        (0, _resaultViewJsDefault.default).update(_model.getSearchResaultPage());
         await _model.loadRecpie(id);
         (0, _recipeViewJsDefault.default).render(_model.state.recipe);
     // const recpieView = new recipeView(model.state.recipe);
@@ -1948,6 +1949,7 @@ const loadSearchResault = async function(query) {
                 image: rec.image_url
             };
         });
+        state.search.page = 1;
         console.log(state.search.resault);
     } catch (err) {
         throw err;
@@ -3049,7 +3051,6 @@ class View {
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
     update(data) {
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderMessage();
         this._data = data;
         const newmarkup = this._generateMarkup();
         const newDom = document.createRange().createContextualFragment(newmarkup);
@@ -3142,9 +3143,10 @@ class resaultView extends (0, _viewDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(resault) {
+        const id = window.location.hash.slice(1);
         return `
     <li class="preview">
-            <a class="preview__link" href="#${resault.id}">
+            <a class="preview__link ${resault.id === id ? "preview__link--active" : ""}" href="#${resault.id}">
               <figure class="preview__fig">
                 <img src="${resault.image}" alt="Test" />
               </figure>
