@@ -621,13 +621,17 @@ const contorolSearchResault = async function() {
         const query = (0, _searchViewJsDefault.default).getQuery();
         if (!query) return;
         await _model.loadSearchResault(query);
-        (0, _resaultViewJsDefault.default).render(_model.getSearchResaultPage(3));
+        (0, _resaultViewJsDefault.default).render(_model.getSearchResaultPage(1));
         // console.log(model.state.search.resault);
         console.log(_model.state.search);
         (0, _paginationViewJsDefault.default).render(_model.state.search);
     } catch (err) {
         console.log(err);
     }
+};
+const controlServing = function(newservings) {
+    _model.updateServing(newservings);
+    (0, _recipeViewJsDefault.default).render(_model.state.recipe);
 };
 const controlPagination = function(goToPage) {
     _model.state.search.page = goToPage;
@@ -636,6 +640,7 @@ const controlPagination = function(goToPage) {
 };
 const init = function() {
     (0, _recipeViewJsDefault.default).addhandelRender(controlRecipes);
+    (0, _recipeViewJsDefault.default).addHandlerUpdateServing(controlServing);
     (0, _searchViewJsDefault.default).addHandlerSearch(contorolSearchResault);
     (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
@@ -1899,6 +1904,7 @@ parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecpie", ()=>loadRecpie);
 parcelHelpers.export(exports, "loadSearchResault", ()=>loadSearchResault);
 parcelHelpers.export(exports, "getSearchResaultPage", ()=>getSearchResaultPage);
+parcelHelpers.export(exports, "updateServing", ()=>updateServing);
 var _config = require("./config");
 var _helper = require("./helper");
 const state = {
@@ -1950,6 +1956,10 @@ const getSearchResaultPage = function(page = 1) {
     const start = (page - 1) * state.search.resaultPerPage;
     const end = page * state.search.resaultPerPage;
     return state.search.resault.slice(start, end);
+};
+const updateServing = function(newServing) {
+    state.recipe.ingredients.forEach((ing)=>ing.quantity = ing.quantity * newServing / state.recipe.servings);
+    state.recipe.servings = newServing;
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs","./helper":"lVRAz"}],"gkKU3":[function(require,module,exports) {
@@ -2626,6 +2636,14 @@ class RecipeView extends (0, _viewDefault.default) {
             "load"
         ].forEach((ev)=>window.addEventListener(ev, handler));
     }
+    addHandlerUpdateServing(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            const btn = e.target.closest(".btn--update-servings");
+            if (!btn) return;
+            const updateTo = +btn.dataset.updateTo;
+            handler(updateTo);
+        });
+    }
     _generateMarkup() {
         return `
     <figure class="recipe__fig">
@@ -2651,12 +2669,12 @@ class RecipeView extends (0, _viewDefault.default) {
           <span class="recipe__info-text">servings</span>
 
           <div class="recipe__info-buttons">
-            <button class="btn--tiny btn--increase-servings">
+            <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">
               <svg>
                 <use href="${0, _iconsSvgDefault1.default}#icon-minus-circle"></use>
               </svg>
             </button>
-            <button class="btn--tiny btn--increase-servings">
+            <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">
               <svg>
                 <use href="${0, _iconsSvgDefault1.default}#icon-plus-circle"></use>
               </svg>
